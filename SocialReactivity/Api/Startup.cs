@@ -13,6 +13,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore.Sqlite;
 using Persistence;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using Application.Activities;
 
 namespace Api
 {
@@ -32,6 +34,7 @@ namespace Api
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
             services.AddCors(options => 
             {
                 options.AddPolicy("CorsPolicy", policy => 
@@ -41,6 +44,9 @@ namespace Api
                           .WithOrigins("http://localhost:3000");
                 });
             });
+
+            services.AddMediatR(typeof(List.Handler).Assembly);
+
             services.AddControllers();
         }
 
