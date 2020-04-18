@@ -13,22 +13,40 @@ class ActivityStore {
   @observable deleteTarget = "";
 
   @computed get activitiesByDate() {
-    return Array.from(this.activityRegistry.values()).sort(
+    return this.groupActivitiesByDate(
+      Array.from(this.activityRegistry.values())
+    );
+  }
+
+  groupActivitiesByDate(activities: IActivity[]) {
+    const sortedActivities = activities.sort(
       (a, b) => Date.parse(a.date) - Date.parse(b.date)
+    );
+
+    return Object.entries(
+      sortedActivities.reduce((activities, activity) => {
+        const date = activity.date.split("T")[0];
+        activities[date] = activities[date]
+          ? [...activities[date], activity]
+          : [activity];
+        return activities;
+      }, {} as { [key: string]: IActivity[] })
     );
   }
 
   @action loadActivities = async () => {
     this.loadingInitial = true;
-
+    console.log();
     try {
-      const activities = await api.Activities.list();
-      runInAction("Loading Activities", () => {
-        activities.forEach((activity) => {
-          activity.date = activity.date.split(".")[0];
-          this.activityRegistry.set(activity.id, activity);
+      if (this.activityRegistry.size === 0) {
+        const activities = await api.Activities.list();
+        runInAction("Loading Activities", () => {
+          activities.forEach((activity) => {
+            activity.date = activity.date.split(".")[0];
+            this.activityRegistry.set(activity.id, activity);
+          });
         });
-      });
+      }
     } catch (error) {
       console.log(error);
     } finally {
