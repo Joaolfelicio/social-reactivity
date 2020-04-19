@@ -15,6 +15,8 @@ using Persistence;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Application.Activities;
+using FluentValidation.AspNetCore;
+using Api.Middleware;
 
 namespace Api
 {
@@ -30,14 +32,14 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(options => 
+            services.AddDbContext<DataContext>(options =>
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddCors(options => 
+            services.AddCors(options =>
             {
-                options.AddPolicy("CorsPolicy", policy => 
+                options.AddPolicy("CorsPolicy", policy =>
                 {
                     policy.AllowAnyHeader()
                           .AllowAnyMethod()
@@ -47,15 +49,21 @@ namespace Api
 
             services.AddMediatR(typeof(List.Handler).Assembly);
 
-            services.AddControllers();
+            services.AddControllers()
+                    .AddFluentValidation(cfg =>
+                    {
+                        cfg.RegisterValidatorsFromAssemblyContaining<Create>();
+                    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                // app.UseDeveloperExceptionPage();
             }
 
             // app.UseHttpsRedirection();

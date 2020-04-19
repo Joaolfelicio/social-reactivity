@@ -36,7 +36,6 @@ class ActivityStore {
 
   @action loadActivities = async () => {
     this.loadingInitial = true;
-    console.log();
     try {
       if (this.activityRegistry.size === 0) {
         const activities = await api.Activities.list();
