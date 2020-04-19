@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from "axios";
-import { IActivity } from "../layout/models/activity";
+import { IActivity } from "../models/activity";
 import { history } from "../../index";
 import { toast } from "react-toastify";
 
@@ -27,6 +27,7 @@ axios.interceptors.response.use(undefined, (error) => {
   if (status === 500) {
     toast.error("Server Error - Check the terminal for more info!");
   }
+  throw error;
 });
 
 const responseBody = (response: AxiosResponse) => response.data;
