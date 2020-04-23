@@ -9,6 +9,7 @@ import { Router } from "react-router-dom";
 import {createBrowserHistory} from "history";
 import ScrollToTop from "./app/layout/ScrollToTop";
 import dateFnsLocalizer from "react-widgets-date-fns";
+import 'mobx-react-lite/batchingForReactDom'
 
 dateFnsLocalizer();
 
