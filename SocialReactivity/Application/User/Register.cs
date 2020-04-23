@@ -67,6 +67,7 @@ namespace Application.User
                     Email = request.Email,
                     UserName = request.Username
                 };
+                var mainPhoto = user.Photos.FirstOrDefault(x => x.IsMain);
 
                 var result = await _userManager.CreateAsync(user, request.Password);
 
@@ -77,7 +78,7 @@ namespace Application.User
                         DisplayName = user.DisplayName,
                         Token = _jwtGenerator.CreateToken(user),
                         Username = user.UserName,
-                        Image = null
+                        Image = mainPhoto?.Url
                     };
                 }
 

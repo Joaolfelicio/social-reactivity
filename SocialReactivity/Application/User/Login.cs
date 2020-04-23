@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -45,6 +46,7 @@ namespace Application.User
             public async Task<User> Handle(Query request, CancellationToken cancellationToken)
             {
                 var user = await _userManager.FindByEmailAsync(request.Email);
+                var mainPhoto = user.Photos.FirstOrDefault(x => x.IsMain);
 
                 if (user == null)
                 {
@@ -60,7 +62,7 @@ namespace Application.User
                         DisplayName = user.DisplayName,
                         Token = _jwtGenerator.CreateToken(user),
                         Username = user.UserName,
-                        Image = null
+                        Image = mainPhoto?.Url
                     };
                 }
                 else

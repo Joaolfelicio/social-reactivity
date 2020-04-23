@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Activities.Model;
 using AutoMapper;
 using Domain;
 using MediatR;

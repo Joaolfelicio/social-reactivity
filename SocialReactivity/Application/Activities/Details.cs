@@ -2,6 +2,7 @@ using System;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using Application.Activities.Model;
 using Application.Errors;
 using AutoMapper;
 using Domain;
