@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    public class PhotosController : BaseController
+    public class PhotoController : BaseController
     {
         [HttpPost]
         public async Task<ActionResult<Photo>> Add([FromForm] Add.Command command)

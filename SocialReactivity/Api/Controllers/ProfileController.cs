@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers
 {
-    public class ProfilesController : BaseController
+    public class ProfileController : BaseController
     {
         [HttpGet("{username}")]
         public async Task<ActionResult<Profile>> Get(string username)
