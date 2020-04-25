@@ -12,10 +12,10 @@ const ProfilePhotos = () => {
     uploadPhoto,
     uploadingPhoto,
     setMainPhoto,
-    loading,
+    deleteLoading: loading,
     deletePhoto,
   } = rootStore.profileStore;
-  const [AddPhotoMode, setAddPhotoMode] = useState(false);
+  const [addPhotoMode, setAddPhotoMode] = useState(false);
   const [target, setTarget] = useState<string | undefined>(undefined);
   const [deleteTarget, setDeleteTarget] = useState<string | undefined>(
     undefined
@@ -34,13 +34,13 @@ const ProfilePhotos = () => {
             <Button
               floated="right"
               basic
-              content={AddPhotoMode ? "Cancel" : "Add Photo"}
-              onClick={() => setAddPhotoMode(!AddPhotoMode)}
+              content={addPhotoMode ? "Cancel" : "Add Photo"}
+              onClick={() => setAddPhotoMode(!addPhotoMode)}
             />
           )}
         </Grid.Column>
         <Grid.Column width={16}>
-          {AddPhotoMode ? (
+          {addPhotoMode ? (
             <PhotoUploadWidget
               uploadPhoto={handleUploadImage}
               loading={uploadingPhoto}

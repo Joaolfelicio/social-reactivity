@@ -1,9 +1,11 @@
 import React from "react";
 import { Tab } from "semantic-ui-react";
 import ProfilePhotos from "./ProfilePhotos";
+import ProfileDescription from "./ProfileDescription";
+import { observer } from "mobx-react-lite";
 
 const panes = [
-  { menuItem: "About", render: () => <Tab.Pane>About content</Tab.Pane> },
+  { menuItem: "About", render: () => <ProfileDescription /> },
   { menuItem: "Photos", render: () => <ProfilePhotos /> },
   {
     menuItem: "Activities",
@@ -28,9 +30,8 @@ const ProfileContent = () => {
       }}
       menuPosition="right"
       panes={panes}
-      activeIndex={1}
     />
   );
 };
 
-export default ProfileContent;
+export default observer(ProfileContent);

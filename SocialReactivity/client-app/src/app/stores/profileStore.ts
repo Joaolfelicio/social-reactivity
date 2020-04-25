@@ -14,7 +14,8 @@ export default class ProfileStore {
   @observable profile: IProfile | null = null;
   @observable loadingProfile = true;
   @observable uploadingPhoto = false;
-  @observable loading = false;
+  @observable deleteLoading = false;
+  @observable editLoading = false;
 
   @action loadProfile = async (username: string) => {
     this.loadingProfile = true;
@@ -56,7 +57,7 @@ export default class ProfileStore {
   };
 
   @action setMainPhoto = async (photo: IPhoto) => {
-    this.loading = true;
+    this.deleteLoading = true;
     try {
       await api.Profile.setMainPhoto(photo.id);
       runInAction(() => {
@@ -64,31 +65,50 @@ export default class ProfileStore {
         this.profile!.photos.find((x) => x.isMain)!.isMain = false;
         this.profile!.photos.find((x) => x.id === photo.id)!.isMain = true;
         this.profile!.image = photo.url;
-        this.loading = false;
+        this.deleteLoading = false;
       });
     } catch (error) {
       toast.error("Problem setting photo as main");
       runInAction(() => {
-        this.loading = true;
+        this.deleteLoading = true;
       });
     }
   };
 
   @action deletePhoto = async (photo: IPhoto) => {
-    this.loading = true;
+    this.deleteLoading = true;
     try {
       await api.Profile.deletePhoto(photo.id);
       runInAction(() => {
         this.profile!.photos = this.profile!.photos.filter(
           (x) => x.id !== photo.id
         );
-        this.loading = false;
+        this.deleteLoading = false;
       });
     } catch (error) {
       toast.error("Problem deleting the photo");
       runInAction(() => {
-        this.loading = true;
+        this.deleteLoading = true;
       });
+    }
+  };
+
+  @action editProfile = async (profile: Partial<IProfile>) => {
+    try {
+      this.editLoading = true;
+      await api.Profile.edit(profile);
+      runInAction("edit profile", () => {
+        if (
+          profile.displayName !== this.rootStore.userStore.user!.displayName
+        ) {
+          this.rootStore.userStore.user!.displayName = profile.displayName!;
+        }
+        this.profile = { ...this.profile!, ...profile };
+        this.editLoading = false;
+      });
+    } catch (error) {
+      toast.error("Problem editing the profile");
+      this.editLoading = false;
     }
   };
 
