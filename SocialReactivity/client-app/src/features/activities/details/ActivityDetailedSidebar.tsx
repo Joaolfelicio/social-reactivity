@@ -3,12 +3,17 @@ import { Segment, List, Item, Label, Image } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { IAttendee } from "../../../app/models/activity";
 import { observer } from "mobx-react-lite";
+import { useMediaQuery } from "react-responsive";
 
 interface IProps {
   attendees: IAttendee[];
 }
 
 const ActivityDetailedSidebar: React.FC<IProps> = ({ attendees }) => {
+
+  const isTablet = useMediaQuery({
+    query: "(max-width: 720px)"
+  })
   return (
     <Fragment>
       <Segment
@@ -30,11 +35,11 @@ const ActivityDetailedSidebar: React.FC<IProps> = ({ attendees }) => {
                   style={{ position: "absolute" }}
                   color="orange"
                   ribbon="right"
-                >
+                > 
                   Host
                 </Label>
               )}
-              <Image size="tiny" src={attendee.image || "/assets/user.png"} />
+              {!isTablet && <Image size="tiny" src={attendee.image || "/assets/user.png"} />}
               <Item.Content verticalAlign="middle">
                 <Item.Header as="h3">
                   <Link to={`/profile/${attendee.username}`}>

@@ -5,6 +5,7 @@ import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { RootStoreContext } from "../../../app/stores/rootStore";
+import { useMediaQuery } from "react-responsive";
 
 const activityImageStyle = {
   filter: "brightness(30%)",
@@ -19,6 +20,16 @@ const activityImageTextStyle = {
   color: "white",
 };
 
+
+const activityImageTextStylePhone = {
+  position: "absolute",
+  bottom: "-20%",
+  left: "0%",
+  width: "100%",
+  height: "auto",
+  color: "white",
+};
+
 interface IProps {
   activity: IActivity;
 }
@@ -28,6 +39,9 @@ const ActivityDetailedHeader: React.FC<IProps> = ({ activity }) => {
 
   const rootStore = useContext(RootStoreContext);
   const { attendActivity, cancelAttendance, loading } = rootStore.activityStore;
+  const isPhone = useMediaQuery({
+    query: "(max-width: 620px)",
+  });
   return (
     <Segment.Group>
       <Segment basic attached="top" style={{ padding: "0" }}>
@@ -36,7 +50,7 @@ const ActivityDetailedHeader: React.FC<IProps> = ({ activity }) => {
           fluid
           style={activityImageStyle}
         />
-        <Segment basic style={activityImageTextStyle}>
+        <Segment basic style={!isPhone ? activityImageTextStyle : activityImageTextStylePhone}>
           <Item.Group>
             <Item>
               <Item.Content>

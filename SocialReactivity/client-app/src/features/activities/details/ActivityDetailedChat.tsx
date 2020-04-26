@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
 import { observer } from "mobx-react-lite";
 import { formatDistance } from "date-fns";
+import { combineValidators, isRequired } from "revalidate";
 
 const ActivityDetailedChat = () => {
   const rootStore = useContext(RootStoreContext);
@@ -52,7 +53,7 @@ const ActivityDetailedChat = () => {
             ))}
           <FinalForm
             onSubmit={addComment}
-            render={({ handleSubmit, submitting, form }) => (
+            render={({ handleSubmit, submitting, form, pristine  }) => (
               <Form onSubmit={() => handleSubmit()!.then(() => form.reset())}>
                 <Field
                   name="body"
@@ -65,6 +66,7 @@ const ActivityDetailedChat = () => {
                   labelPosition="left"
                   icon="edit"
                   primary
+                  disabled={pristine}
                   loading={submitting}
                 />
               </Form>

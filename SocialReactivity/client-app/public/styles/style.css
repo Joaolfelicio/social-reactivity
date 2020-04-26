@@ -1,0 +1,5 @@
+.ui .two .statistics {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

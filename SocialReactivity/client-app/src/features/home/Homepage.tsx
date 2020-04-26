@@ -12,7 +12,13 @@ const Homepage = () => {
   const { openModal } = rootStore.modalStore;
 
   return (
-    <Segment inverted textAlign="center" vertical className="masthead">
+    <Segment
+      style={{ display: "flex", justifyContent: "center" }}
+      inverted
+      textAlign="center"
+      vertical
+      className="masthead"
+    >
       <Container text>
         <Header as="h1" inverted>
           <Image
@@ -30,17 +36,34 @@ const Homepage = () => {
               inverted
               content={`Welcome back ${user.displayName}`}
             />
-            <Button as={Link} to="/activities" size="huge" inverted>
+            <Button
+              style={{ marginTop: 20 }}
+              as={Link}
+              to="/activities"
+              size="huge"
+              inverted
+            >
               Go to activities
             </Button>
           </Fragment>
         ) : (
           <Fragment>
             <Header as="h2" inverted content="Welcome to Social Reactivity" />
-            <Button onClick={() => openModal(<LoginForm />)} to="/login" size="huge" inverted>
+            <Button
+              style={{ marginTop: 20 }}
+              onClick={() => openModal(<LoginForm />)}
+              to="/login"
+              size="huge"
+              inverted
+            >
               Login
             </Button>
-            <Button onClick={() => openModal(<RegisterForm />)} to="/register" size="huge" inverted>
+            <Button
+              onClick={() => openModal(<RegisterForm />)}
+              to="/register"
+              size="huge"
+              inverted
+            >
               Register
             </Button>
           </Fragment>

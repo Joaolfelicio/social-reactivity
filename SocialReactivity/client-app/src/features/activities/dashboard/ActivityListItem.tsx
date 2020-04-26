@@ -54,7 +54,7 @@ const ActivityListItem: React.FC<IProp> = ({ activity }) => {
       </Segment>
       <Segment>
         <Icon name="clock" /> {format(activity.date, "h:mm a")}
-        <Icon name="marker" /> {activity.venue}, {activity.city}
+        <Icon style={{marginLeft: 10}} name="marker" /> {activity.venue}, {activity.city}
       </Segment>
       <Segment secondary>
         <ActivityListItemAttendees attendees={activity.attendees} />

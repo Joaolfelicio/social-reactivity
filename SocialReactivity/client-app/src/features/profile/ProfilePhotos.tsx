@@ -3,6 +3,7 @@ import { Tab, Header, Card, Image, Button, Grid } from "semantic-ui-react";
 import { RootStoreContext } from "../../app/stores/rootStore";
 import { PhotoUploadWidget } from "../../app/common/photoUpload/PhotoUploadWidget";
 import { observer } from "mobx-react-lite";
+import { useMediaQuery } from "react-responsive";
 
 const ProfilePhotos = () => {
   const rootStore = useContext(RootStoreContext);
@@ -24,6 +25,13 @@ const ProfilePhotos = () => {
   const handleUploadImage = (photo: Blob) => {
     uploadPhoto(photo).then(() => setAddPhotoMode(false));
   };
+  
+  const isTablet = useMediaQuery({
+    query: "(max-width: 992px)",
+  });
+  const isPhone = useMediaQuery({
+    query: "(max-width: 645px)",
+  });
 
   return (
     <Tab.Pane>
@@ -46,13 +54,13 @@ const ProfilePhotos = () => {
               loading={uploadingPhoto}
             />
           ) : (
-            <Card.Group itemsPerRow={5}>
+            <Card.Group itemsPerRow={isTablet ? 3 : 5}>
               {profile &&
                 profile.photos.map((photo) => (
                   <Card key={photo.id}>
                     <Image src={photo.url} />
                     {isCurrentUser && (
-                      <Button.Group fluid widths={2}>
+                      <Button.Group vertical={isPhone} fluid widths={2}>
                         <Button
                           name={photo.id}
                           loading={loading && target === photo.id}
@@ -62,6 +70,7 @@ const ProfilePhotos = () => {
                           }}
                           basic
                           positive
+                          style={{display: "flex", justifyContent: "center"}}
                           content="Main"
                           disabled={photo.isMain}
                         />
@@ -71,6 +80,7 @@ const ProfilePhotos = () => {
                             deletePhoto(photo);
                             setDeleteTarget(event.currentTarget.name);
                           }}
+                          style={{display: "flex", justifyContent: "center"}}
                           loading={loading && deleteTarget === photo.id}
                           basic
                           negative

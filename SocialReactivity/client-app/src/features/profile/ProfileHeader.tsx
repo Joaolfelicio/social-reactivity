@@ -11,6 +11,7 @@ import {
 } from "semantic-ui-react";
 import { IProfile } from "../../app/models/profile";
 import { observer } from "mobx-react-lite";
+import { useMediaQuery } from "react-responsive";
 
 interface IProps {
   profile: IProfile;
@@ -27,10 +28,22 @@ const ProfileHeader: React.FC<IProps> = ({
   follow,
   unfollow,
 }) => {
+  const isSmallPhone = useMediaQuery({
+    query: "(max-width: 500px)",
+  });
+
+  const isButtonPhone = useMediaQuery({
+    query: "(max-width: 672px)",
+  });
+
+  const followingSizeStyle = {
+    fontSize: 11,
+  };
+
   return (
     <Segment>
       <Grid>
-        <Grid.Column width={12}>
+        <Grid.Column width={11}>
           <Item.Group>
             <Item>
               <Item.Image
@@ -44,16 +57,28 @@ const ProfileHeader: React.FC<IProps> = ({
             </Item>
           </Item.Group>
         </Grid.Column>
-        <Grid.Column verticalAlign="middle" width={4}>
+        <Grid.Column verticalAlign="middle" width={5}>
           <Statistic.Group widths={2}>
-            <Statistic label="Followers" value={profile.followersCount} />
-            <Statistic label="Following" value={profile.followingCount} />
+            <Statistic
+              style={isSmallPhone ? followingSizeStyle : null}
+              horizontal={isButtonPhone}
+              label="Followers"
+              value={profile.followersCount}
+            />
+            <Statistic
+              style={isSmallPhone ? followingSizeStyle : null}
+              horizontal={isButtonPhone}
+              label="Following"
+              value={profile.followingCount}
+            />
           </Statistic.Group>
           <Divider />
+
           {!isCurrentUser && (
             <Reveal animated="move">
               <Reveal.Content visible style={{ width: "100%" }}>
                 <Button
+                  size={isSmallPhone ? "mini" : "medium"}
                   fluid
                   color="teal"
                   content={profile.following ? "Following" : "Not following"}
@@ -61,6 +86,7 @@ const ProfileHeader: React.FC<IProps> = ({
               </Reveal.Content>
               <Reveal.Content hidden>
                 <Button
+                  size={isSmallPhone ? "mini" : "medium"}
                   loading={followLoading}
                   fluid
                   basic
