@@ -13,7 +13,7 @@ namespace Application.Profiles.Model
         public ICollection<Photo> Photos { get; set; }
 
         [JsonPropertyName("following")]
-        public bool IsFollowed { get; set; }
+        public bool Following { get; set; }
         public int FollowersCount {get;set;}
         public int FollowingCount { get; set; }
     }

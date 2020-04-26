@@ -6,7 +6,7 @@ import { observer } from "mobx-react-lite";
 
 const ProfileDescription = () => {
   const rootStore = useContext(RootStoreContext);
-  const { isCurrentUser, profile, editProfile } = rootStore.profileStore;
+  const { isCurrentUser, profile } = rootStore.profileStore;
 
   const [editMode, setEditMode] = useState(false);
 

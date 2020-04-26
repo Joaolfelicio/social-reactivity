@@ -42,7 +42,7 @@ namespace Application.Profiles
                 Photos = user.Photos,
                 FollowersCount = user.Followers.Count,
                 FollowingCount = user.Following.Count,
-                IsFollowed = IsFollowing
+                Following = IsFollowing
             };
         }
     }
