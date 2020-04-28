@@ -34,7 +34,7 @@ const ActivityListItem: React.FC<IProp> = ({ activity }) => {
                 <Item.Description>
                   <Label
                     basic
-                    color="green"
+                    color="orange"
                     content="You are hosting this activity"
                   />
                 </Item.Description>
@@ -43,7 +43,7 @@ const ActivityListItem: React.FC<IProp> = ({ activity }) => {
                 <Item.Description>
                   <Label
                     basic
-                    color="orange"
+                    color="green"
                     content="You are going to this activity"
                   />
                 </Item.Description>

@@ -1,8 +1,8 @@
 export const category = [
-  { key: 'drinks', text: 'Drinks', value: 'drinks' },
-  { key: 'culture', text: 'Culture', value: 'culture' },
-  { key: 'film', text: 'Film', value: 'film' },
-  { key: 'food', text: 'Food', value: 'food' },
-  { key: 'music', text: 'Music', value: 'music' },
-  { key: 'travel', text: 'Travel', value: 'travel' }
+  { key: 'drinks', text: 'Drinks', value: 'Drinks' },
+  { key: 'culture', text: 'Culture', value: 'Culture' },
+  { key: 'film', text: 'Film', value: 'Film' },
+  { key: 'food', text: 'Food', value: 'Food' },
+  { key: 'music', text: 'Music', value: 'Music' },
+  { key: 'travel', text: 'Travel', value: 'Travel' }
 ];

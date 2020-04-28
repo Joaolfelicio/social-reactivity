@@ -26,12 +26,17 @@ axios.interceptors.response.use(undefined, (error) => {
     toast.error("Network Error - Make sure the API is running!");
   }
 
-  const { status, data, config } = error.response;
+  const { status, data, config, headers } = error.response;
 
   if (status === 404) {
     history.push("/NotFound");
   }
 
+  if (status === 401 && headers['www-authenticate'].includes('Bearer error="invalid_token", error_description="The token expired')) {
+    window.localStorage.removeItem("jwt");
+    history.push("/");
+    toast.info("Your session has expired, please login again");
+  }
   if (
     status === 400 &&
     config.method === "get" &&
@@ -108,6 +113,8 @@ const Profile = {
     requests.delete(`/profile/${username}/follow`),
   listFollowings: (username: string, predicate: string) =>
     requests.get(`/profile/${username}/follow?predicate=${predicate}`),
+  listActivities: (username: string, predicate: string) =>
+    requests.get(`/profile/${username}/activities?predicate=${predicate}`),
 };
 
 export default {

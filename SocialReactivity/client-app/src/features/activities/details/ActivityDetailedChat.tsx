@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import TextAreaInput from "../../../app/common/form/TextAreaInput";
 import { observer } from "mobx-react-lite";
 import { formatDistance } from "date-fns";
-import { combineValidators, isRequired } from "revalidate";
 
 const ActivityDetailedChat = () => {
   const rootStore = useContext(RootStoreContext);
