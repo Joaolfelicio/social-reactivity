@@ -17,9 +17,9 @@ export default class UserStore {
       const user = await api.User.login(values);
       runInAction(() => {
         this.user = user;
+        this.rootStore.commonStore.setToken(user.token);
+        this.rootStore.modalStore.closeModal();
       });
-      this.rootStore.commonStore.setToken(user.token);
-      this.rootStore.modalStore.closeModal();
       history.push("/activities");
     } catch (error) {
       throw error;

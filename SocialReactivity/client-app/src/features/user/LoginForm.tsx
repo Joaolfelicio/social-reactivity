@@ -27,7 +27,6 @@ function LoginForm() {
       render={({
         handleSubmit,
         submitting,
-        form,
         submitError,
         invalid,
         pristine,

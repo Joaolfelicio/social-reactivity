@@ -10,6 +10,7 @@
 
 appsettings.json
 *.db
+wwwroot
 
 # User-specific files
 *.rsuser

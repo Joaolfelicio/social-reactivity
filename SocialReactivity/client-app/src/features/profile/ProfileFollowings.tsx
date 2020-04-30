@@ -3,6 +3,7 @@ import { Tab, Grid, Header, Card } from "semantic-ui-react";
 import { RootStoreContext } from "../../app/stores/rootStore";
 import ProfileFollowingsCard from "./ProfileFollowingsCard";
 import { observer } from "mobx-react-lite";
+import { useMediaQuery } from "react-responsive";
 
 const ProfileFollowings = () => {
   const rootStore = useContext(RootStoreContext);
@@ -12,6 +13,10 @@ const ProfileFollowings = () => {
     followingsLoading,
     activeTab
   } = rootStore.profileStore;
+
+  const isTable = useMediaQuery({
+    query: "(max-width: 745px)",
+  });
 
   return (
     <Tab.Pane loading={followingsLoading}>
@@ -28,7 +33,7 @@ const ProfileFollowings = () => {
           />
         </Grid.Column>
         <Grid.Column width={16}>
-          <Card.Group itemsPerRow={5}>
+          <Card.Group itemsPerRow={!isTable ? 4 : 2}>
             {followings.map((profile) => (
               <ProfileFollowingsCard key={profile.username} profile={profile} />
             ))}
