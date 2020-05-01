@@ -94,6 +94,8 @@ const User = {
     requests.post("/user/login", user),
   register: (user: IUserFormValues): Promise<IUser> =>
     requests.post("/user/register", user),
+  fbLogin: (accessToken: string) =>
+    requests.post(`/user/facebook`, {accessToken}),
 };
 
 const Profile = {
