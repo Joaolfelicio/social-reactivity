@@ -67,7 +67,7 @@ namespace Application.User
                     Email = request.Email,
                     UserName = request.Username
                 };
-                var mainPhoto = user.Photos.FirstOrDefault(x => x.IsMain);
+                var mainPhoto = user.Photos?.FirstOrDefault(x => x.IsMain);
 
                 var result = await _userManager.CreateAsync(user, request.Password);
 

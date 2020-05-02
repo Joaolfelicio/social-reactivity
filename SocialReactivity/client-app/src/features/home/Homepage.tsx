@@ -1,5 +1,5 @@
 import React, { useContext, Fragment } from "react";
-import { Container, Segment, Header, Button, Image } from "semantic-ui-react";
+import { Container, Segment, Header, Button, Image, Message } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import { RootStoreContext } from "../../app/stores/rootStore";
 import { observer } from "mobx-react-lite";
@@ -67,6 +67,13 @@ const Homepage = () => {
             >
               Register
             </Button>
+            <Message
+            style={{marginTop: "50px"}}
+              color="blue"
+              icon="code"
+              header="Development Mode"
+              content="You can register using a fake email, no confirmation will be requested."
+            />
           </Fragment>
         )}
       </Container>

@@ -30,6 +30,7 @@ export default class UserStore {
     try {
       const user = await api.User.register(values);
       runInAction(() => {
+        this.user = user;
         this.rootStore.commonStore.setToken(user.token);
         this.rootStore.modalStore.closeModal();
       });
