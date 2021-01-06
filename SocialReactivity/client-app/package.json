@@ -18,7 +18,7 @@
     "@types/react-widgets": "^4.4.2",
     "@types/revalidate": "^1.1.2",
     "@types/uuid": "^7.0.2",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "date-fns": "^2.0.0-alpha.13",
     "final-form": "^4.16.1",
     "mobx": "^5.15.4",
